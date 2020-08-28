@@ -9,6 +9,7 @@ import (
 
 func main() {
 
+	// Specify the port to connect at the specific port
 	port := ":3478"
 	connection, err := net.Listen("tcp", port)
 	if err != nil {
@@ -17,7 +18,6 @@ func main() {
 	}
 
 	for {
-
 		socket, err := connection.Accept()
 
 		if err != nil {
