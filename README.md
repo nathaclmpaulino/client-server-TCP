@@ -17,6 +17,7 @@ Este projeto está dividido de acordo com a seguinte estruturação:
 Baixe o compilador de Go seguindo orientações do site da [Golang](https://golang.org/dl/) 
 Assumindo que seu path atual seja a pasta base (~/client-server-TCP) 
 Use os dois comandos:
+
 1. go run server/server.go
 2. go run client/client.go
 

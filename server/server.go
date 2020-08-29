@@ -17,25 +17,26 @@ func main() {
 		return
 	}
 
+	socket, err := connection.Accept()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	defer connection.Close()
+
+	// Running server until press ctrl c
 	for {
-		socket, err := connection.Accept()
+		message, err := bufio.NewReader(socket).ReadString('\n')
 
 		if err != nil {
 			fmt.Println(err)
 			return
 		}
 
-		netData, err := bufio.NewReader(socket).ReadString('\n')
-		fmt.Print("-> ", strings.ToUpper(string(netData)))
+		fmt.Print(strings.ToUpper(string(message)))
 
-		if err != nil {
-			fmt.Println(err)
-			return
-		}
-		if strings.TrimSpace(string(netData)) == "STOP" {
-			fmt.Println("Exiting TCP server!")
-			return
-		}
+		socket.Write([]byte(strings.ToUpper(string(message)) + "\n"))
 	}
 	defer connection.Close()
 }

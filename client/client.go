@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net"
 	"os"
-	"strings"
 )
 
 func main() {
@@ -18,19 +17,15 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	count := 0
 	for {
 		//Create a buffer to read an input event
 		buffer := bufio.NewReader(os.Stdin)
-		fmt.Print()
 		text, _ := buffer.ReadString('\n')
 
-		fmt.Fprintf(socket, text+"\n")
-
+		fmt.Fprintf(socket, text)
+		count++
 		message, _ := bufio.NewReader(socket).ReadString('\n')
-		fmt.Print("->: " + message)
-		if strings.TrimSpace(string(text)) == "STOP" {
-			fmt.Println("TCP client exiting...")
-			return
-		}
+		fmt.Print("Resposta da mensagem " + fmt.Sprintf("%d", count) + ":" + message)
 	}
 }
